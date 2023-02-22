@@ -39,7 +39,7 @@ function getCurrentWeekDates() {
       console.log()
     }
  
-    console.log(previousDaysOfWeek, todayAndRestOfWeek)
+    return {previousDaysOfWeek,todayAndRestOfWeek}
   }
 
   export {getCompliantDate, getCurrentWeekDates }
