@@ -17,11 +17,13 @@
     "date-fns": "^2.29.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "temporal-polyfill": "^0.1.0"
+    "temporal-polyfill": "^0.1.0",
+    "use-debounce": "^9.0.3"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.27",
     "@svgr/core": "^6.5.1",
+    "@tanstack/eslint-plugin-query": "^4.24.11",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react-swc": "^3.0.0",
