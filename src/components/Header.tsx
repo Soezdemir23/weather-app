@@ -2,12 +2,13 @@ import { Input, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useDebounce } from "use-debounce";
+import { countryCodeComponent } from "../countryCodes";
 
 export default function Header() {
   console.log("header renders");
   // we need to get the days
   const [searchQuery, setSearchQuery] = useState("");
-  const [debounceQuery] = useDebounce(searchQuery, 500);
+  const [debounceQuery] = useDebounce(searchQuery, 1500);
   const { data, isError, error } = useQuery({
     queryKey: ["query", debounceQuery],
     queryFn: async () => {
@@ -66,6 +67,7 @@ export default function Header() {
                 className="bg-teal-200 w-full rounded border-0 border-b border-solid border-teal-600 m-0 "
               >
                 {event.name}, {event.state}, {event.country}{" "}
+                {countryCodeComponent(event.country)}{" "}
               </Typography>
             ))
           )}
