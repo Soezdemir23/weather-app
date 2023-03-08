@@ -1,63 +1,61 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Main from "./components/Main";
-import { getCurrentWeekDates } from "./date";
+import { apiCall2CustomObjects } from "./interfaces";
+
 import { useQuery } from "@tanstack/react-query";
-import { Typography } from "@material-tailwind/react";
+import { fetchLongLatByCityName, fetchWeatherByLongLat } from "./queries";
 
 function App() {
   const [weekWeather, setWeekWeather] = useState<{ [key: string]: any }>();
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["start"],
-    queryFn: fetchCurrentWeek,
-  });
-  console.log("app renders");
+  const [searchResults, setSearchResults] = useState<{ [key: string]: any }[]>(
+    []
+  );
 
-  async function fetchCurrentWeek(): Promise<{ [key: string]: any } | unknown> {
-    let weather = getCurrentWeekDates();
-
-    try {
-      // first use the one API to get the longitude and latitude by city, state, or Country name
-      const fetchLongLat = await fetch(
-        "http://api.openweathermap.org/geo/1.0/direct?q=toscana&limit=1&appid=" +
-          import.meta.env.VITE_API_OPENWEATHER_KEY,
-        { mode: "cors" }
-      ).then((response) => response.json());
-
-      // pass the longitude and latitude to open-meteo and a start and end date
-      const fetchWeekWeather = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${
-          fetchLongLat[0].lat
-        }&longitude=${
-          fetchLongLat[0].lon
-        }&daily=weathercode,temperature_2m_max,temperature_2m_min,rain_sum&current_weather=true&timezone=auto&start_date=${
-          weather.previousDaysOfWeek.length === 0
-            ? weather.todayAndRestOfWeek[0]
-            : weather.previousDaysOfWeek[0]
-        }&end_date=${
-          weather.todayAndRestOfWeek[weather.todayAndRestOfWeek.length - 1]
-        }`,
-        { mode: "cors" }
-      );
-
-      const processWeekWeather = await fetchWeekWeather.json();
-      if (weather === undefined) {
-        return error;
+  // This is only for the default startup, we STILL get a Weather data back.
+  // Let's worry about adding an array of Weather objects later on,
+  // when I have thought of the most visited cities.
+  const {
+    isLoading: defaultWeatherIsLoading,
+    error: defaulttWeatherError,
+    data: defaultWeatherData,
+  } = useQuery({
+    queryKey: ["start up weather"],
+    queryFn: async (): Promise<apiCall2CustomObjects.Weather> => {
+      try {
+        // why can I  never access the object directly? this is stupid!!!!
+        const cityToLongLatRequest = await fetchLongLatByCityName("Köln");
+        const cityToLongLatObject = await cityToLongLatRequest[0];
+        const thisWeek: apiCall2CustomObjects.Weather =
+          await fetchWeatherByLongLat(
+            cityToLongLatObject.lat,
+            cityToLongLatObject.lon,
+            cityToLongLatObject.country,
+            cityToLongLatObject.name,
+            cityToLongLatObject.state
+          );
+        // I wrapped this object into
+        return thisWeek;
+      } catch (error) {
+        if (error instanceof Error) {
+          throw new Error("Setting up Weather Object failed", error);
+        }
+        throw new Error();
       }
-      setWeekWeather({ fetchLongLat, processWeekWeather });
-      return { fetchLongLat, processWeekWeather };
-    } catch (error) {
-      return error;
-    }
-  }
+    },
+  });
 
+  function clickedSearch(data: { [key: string]: any }) {
+    setSearchResults([...searchResults, data]);
+  }
+  if (defaulttWeatherError === true || defaultWeatherData === undefined)
+    return <p>Error with Weather api call not working</p>;
   return (
     <>
-      <Header></Header>
-      <Main weather={weekWeather}></Main>
-
+      <Header clickedSearch={clickedSearch}></Header>
+      <Main weather={defaultWeatherData} results={searchResults}></Main>
       <Footer></Footer>
     </>
   );
