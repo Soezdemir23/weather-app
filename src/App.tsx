@@ -9,10 +9,11 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchLongLatByCityName, fetchWeatherByLongLat } from "./queries";
 
 function App() {
-  const [weekWeather, setWeekWeather] = useState<{ [key: string]: any }>();
-  const [searchResults, setSearchResults] = useState<{ [key: string]: any }[]>(
-    []
-  );
+  const [weekWeather, setWeekWeather] =
+    useState<apiCall2CustomObjects.Weather>();
+  const [searchResults, setSearchResults] = useState<
+    apiCall2CustomObjects.CityInformation[]
+  >([]);
 
   // This is only for the default startup, we STILL get a Weather data back.
   // Let's worry about adding an array of Weather objects later on,
@@ -47,9 +48,14 @@ function App() {
     },
   });
 
-  function clickedSearch(data: { [key: string]: any }) {
-    setSearchResults([...searchResults, data]);
+  // Wouldn't it be actually better to put this information into a map,
+  // then check if the name of the result exists inside the keys?
+  // Then only then make an api call, then add the result of it into that map,
+  // so the whole information doesn't have to be refetched?
+  function clickedSearch(data: apiCall2CustomObjects.CityInformation) {
+    console.log("app", data);
   }
+
   if (defaulttWeatherError === true || defaultWeatherData === undefined)
     return <p>Error with Weather api call not working</p>;
   return (
