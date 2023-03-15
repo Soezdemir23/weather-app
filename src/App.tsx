@@ -9,10 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchLongLatByCityName, fetchWeatherByLongLat } from "./queries";
 
 function App() {
-  const [weekWeather, setWeekWeather] =
-    useState<apiCall2CustomObjects.Weather>();
   const [searchResults, setSearchResults] = useState<
-    apiCall2CustomObjects.CityInformation[]
+    apiCall2CustomObjects.Weather[]
   >([]);
 
   // This is only for the default startup, we STILL get a Weather data back.
@@ -28,15 +26,9 @@ function App() {
       try {
         // why can I  never access the object directly? this is stupid!!!!
         const cityToLongLatRequest = await fetchLongLatByCityName("Köln");
-        const cityToLongLatObject = await cityToLongLatRequest[0];
+        const cityToLongLatObject = cityToLongLatRequest[0];
         const thisWeek: apiCall2CustomObjects.Weather =
-          await fetchWeatherByLongLat(
-            cityToLongLatObject.lat,
-            cityToLongLatObject.lon,
-            cityToLongLatObject.country,
-            cityToLongLatObject.name,
-            cityToLongLatObject.state
-          );
+          await fetchWeatherByLongLat(cityToLongLatObject);
         // I wrapped this object into
         return thisWeek;
       } catch (error) {
@@ -50,10 +42,25 @@ function App() {
 
   // Wouldn't it be actually better to put this information into a map,
   // then check if the name of the result exists inside the keys?
+  // It can be easily done by trying to find the country name inside the weather
+  // interfaced object.
   // Then only then make an api call, then add the result of it into that map,
   // so the whole information doesn't have to be refetched?
-  function clickedSearch(data: apiCall2CustomObjects.CityInformation) {
-    console.log("app", data);
+  async function clickedSearch(data: apiCall2CustomObjects.CityInformation) {
+    if (
+      searchResults.find(
+        (result) =>
+          data.name === result.cityname &&
+          data.country === result.countrycode &&
+          result.state === data.state
+      )
+    )
+      // you can still have th same name of cities, but varying information
+      return;
+    // make an api call
+    const cityWeather: apiCall2CustomObjects.Weather =
+      await fetchWeatherByLongLat(data);
+    setSearchResults([...searchResults, cityWeather]);
   }
 
   if (defaulttWeatherError === true || defaultWeatherData === undefined)
