@@ -77,12 +77,17 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
   }
   return (
     <>
-      <Card>
+      <Card className="bg-brown-800">
         <CardHeader color="blue-gray" className="text-center">
-          <Typography variant="h5" className="mb-2 flex justify-center">
+          <Typography
+            variant="h5"
+            className="mb-2 flex justify-center xs:my-4 xs:text-2xl"
+          >
             {weather.cityname}
           </Typography>
-          <Typography>{weather.state + ", " + weather.countrycode}</Typography>
+          <Typography className="xs:text-xl xs:my-4">
+            {weather.state + ", " + weather.countrycode}
+          </Typography>
           <Typography>
             temperature: {weather.currentWeather.temperature} °C
           </Typography>
@@ -91,7 +96,7 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
             {WMOComponent(weather.currentWeather.weathercode)}
           </Typography>
         </CardHeader>
-        <CardBody className="flex justify-center gap-2">
+        <CardBody className="flex justify-center gap-2 text-white">
           {returnTheWeek(weather)}
         </CardBody>
         <CardFooter>{""}</CardFooter>
