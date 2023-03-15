@@ -7,6 +7,7 @@ import { apiCall2CustomObjects } from "./interfaces";
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchLongLatByCityName, fetchWeatherByLongLat } from "./queries";
+import React from "react";
 
 function App() {
   const [searchResults, setSearchResults] = useState<
