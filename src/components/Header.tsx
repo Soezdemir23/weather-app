@@ -5,7 +5,11 @@ import { useDebounce } from "use-debounce";
 import { countryCodeComponent } from "../countryCodes";
 import { apiCall2CustomObjects, apiCalledFromMeteo } from "../interfaces";
 
-export default function Header({ clickedSearch }: any) {
+interface clickedSearchProps {
+  clickedSearch: (data: apiCall2CustomObjects.CityInformation) => void;
+}
+
+export default function Header({ clickedSearch }: clickedSearchProps) {
   // we need to get the days
   const [searchQuery, setSearchQuery] = useState("");
   const [clickedResult, setClickedResult] = useState<
@@ -13,30 +17,11 @@ export default function Header({ clickedSearch }: any) {
   >(undefined);
   // debounce
   const [debounceQuery] = useDebounce(searchQuery, 1500);
-  const [resultEnabled, setResultEnabled] = useState(false);
 
   function handleResultClick(index: number) {
     if (!searchData) return;
     clickedSearch(searchData[index]);
   }
-
-  const { data: resultData } = useQuery({
-    queryKey: ["clickedResult", clickedResult],
-    queryFn: async (): Promise<
-      apiCalledFromMeteo.RootObject | apiCalledFromMeteo.RootObject[]
-    > => {
-      try {
-        const fetchWeekWeather = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${clickedResult?.lat}&longitude=${clickedResult?.lon}`
-        );
-        const result: apiCalledFromMeteo.RootObject =
-          await fetchWeekWeather.json();
-        return result;
-      } catch (error) {
-        throw new Error("Cannot read clickedResult");
-      }
-    },
-  });
 
   // call API depending on the searchTerm given to 'debounceQuery'
   const { data: searchData, isError: searchError } = useQuery({
@@ -69,13 +54,16 @@ export default function Header({ clickedSearch }: any) {
     return <p>There is an error loading the API by searching</p>;
   }
   return (
-    <header className="bg-blue-gray-200 p-4 flex items-baseline gap-9">
-      <Typography variant="h1" className="max-w-xs mr-4">
+    <header className="bg-blue-gray-200 flex items-baseline col p-4 gap-9 xs:flex-col xs:items-center xs:p-2 xs:gap-2 ipad-air:flex-row ipad-air:justify-evenly">
+      <Typography
+        variant="h1"
+        className="max-w-xs mr-4 xs:text-3xl xs:mr-0 sm:text-2xl ipad-air:text-4xl"
+      >
         Weatherlicious
       </Typography>
-      <div className="w-40 relative">
+      <div className="w-40 relative xs:w-52">
         <input
-          className="relative bottom-2 w-full border-0 rounded-xl h-5 outline-none indent-1 focus:ring-2 focus:ring-inset focus:ring-offset-teal-400 focus:bg-orange-300 focus:text-white focus:placeholder:text-white"
+          className="relative bottom-2 w-full border-0 rounded-xl h-5 outline-none indent-1 focus:ring-2 focus:ring-inset focus:ring-offset-teal-400 focus:bg-orange-300 focus:text-white focus:placeholder:text-white xs:h-8 xs:w-56 xs:right-2 ipad-air:top-0 ipad-air:text-xl"
           placeholder="City, State, Country"
           type={"text"}
           size={14}
@@ -116,8 +104,10 @@ export default function Header({ clickedSearch }: any) {
                 <Typography
                   key={index}
                   variant="small"
-                  className="bg-teal-200 w-full rounded border-0 border-b border-solid border-teal-600 m-0 hover:cursor-pointer hover:bg-teal-50 active:bg-teal-100 "
-                  onClick={() => handleResultClick(index)}
+                  className="bg-teal-200 w-full rounded border-0 border-b border-solid border-teal-600 m-0 hover:cursor-pointer hover:bg-teal-50 active:bg-teal-100 ipad-air:text-lg"
+                  onClick={() => {
+                    handleResultClick(index);
+                  }}
                 >
                   {event.name}, {event.state}, {event.country}{" "}
                   {countryCodeComponent(event.country)}{" "}
