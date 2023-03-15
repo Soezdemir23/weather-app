@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "license": "MIT",
+  "homepage": "https://soezdemir23.github.io/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -24,6 +25,7 @@
     "@iconify/json": "^2.2.27",
     "@svgr/core": "^6.5.1",
     "@tanstack/eslint-plugin-query": "^4.24.11",
+    "@testing-library/react": "^14.0.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react-swc": "^3.0.0",
