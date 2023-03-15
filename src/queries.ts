@@ -6,7 +6,7 @@ export async function fetchLongLatByCityName(
 ): Promise<apiCall2CustomObjects.CityInformation[]> {
   try {
     const result = await fetch(
-      "http://api.openweathermap.org/geo/1.0/direct?q=" +
+      "https://api.openweathermap.org/geo/1.0/direct?q=" +
         city +
         "&limit=1&appid=" +
         import.meta.env.VITE_API_OPENWEATHER_KEY,

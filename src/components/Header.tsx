@@ -17,7 +17,6 @@ export default function Header({ clickedSearch }: any) {
 
   function handleResultClick(index: number) {
     if (!searchData) return;
-    console.log(searchData[index]);
     clickedSearch(searchData[index]);
   }
 
@@ -47,7 +46,7 @@ export default function Header({ clickedSearch }: any) {
     > => {
       try {
         const response = await fetch(
-          "http://api.openweathermap.org/geo/1.0/direct?q=" +
+          "https://api.openweathermap.org/geo/1.0/direct?q=" +
             debounceQuery +
             "&limit=10&appid=" +
             import.meta.env.VITE_API_OPENWEATHER_KEY,
