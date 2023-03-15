@@ -16,11 +16,9 @@ export default function Header({ clickedSearch }: any) {
   const [resultEnabled, setResultEnabled] = useState(false);
 
   function handleResultClick(index: number) {
-    if (searchData === undefined) {
-      throw new Error("calling handleResultClick with undefined data");
-    } else {
-      setClickedResult(searchData[index]);
-    }
+    if (!searchData) return;
+    console.log(searchData[index]);
+    clickedSearch(searchData[index]);
   }
 
   const { data: resultData } = useQuery({
@@ -71,7 +69,6 @@ export default function Header({ clickedSearch }: any) {
   if (searchError) {
     return <p>There is an error loading the API by searching</p>;
   }
-  console.log("debug", searchData, searchQuery);
   return (
     <header className="bg-blue-gray-200 p-4 flex items-baseline gap-9">
       <Typography variant="h1" className="max-w-xs mr-4">
