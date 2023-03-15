@@ -5,7 +5,7 @@ import WeatherCard from "./WeatherCard";
 
 interface CurrentWeatherInterface {
   weather: apiCall2CustomObjects.Weather;
-  results: { [key: string]: any }[];
+  results: apiCall2CustomObjects.Weather[];
 }
 
 export default function Main({ weather, results }: CurrentWeatherInterface) {
@@ -14,7 +14,6 @@ export default function Main({ weather, results }: CurrentWeatherInterface) {
 
   // There is a problem with the daily weather being rendered automatically due to constrains of the JSON properties etc.
   // , which would make life easier
-
   if (weather === undefined || weather === null) {
     return (
       <>
@@ -24,9 +23,18 @@ export default function Main({ weather, results }: CurrentWeatherInterface) {
   }
 
   return (
-    <main className="flex-1 mx-10">
-      <div className="grid pt-7 grid-row-3 grid-cols-4">
-        <WeatherCard weather={weather} />
+    <main className="flex-1 mx-10 xs:mx-5 sm:mx-12">
+      <div className="grid pt-7 grid-row-3 grid-cols-4 xs:grid-rows-1 xs:grid-cols-1 xs:space-y-5 ipad-air:grid-flow-col">
+        {results.length === 0 ? (
+          <WeatherCard weather={weather} />
+        ) : (
+          results.map((result, index) => (
+            <>
+              <WeatherCard key={index} weather={result} />
+              <hr></hr>
+            </>
+          ))
+        )}
       </div>
     </main>
   );
