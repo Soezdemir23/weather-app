@@ -23,16 +23,13 @@ export default function Main({ weather, results }: CurrentWeatherInterface) {
   }
 
   return (
-    <main className="flex-1 mx-10 xs:mx-5 sm:mx-12">
-      <div className="grid pt-7 grid-row-3 grid-cols-4 xs:grid-rows-1 xs:grid-cols-1 xs:space-y-5 ipad-air:grid-flow-col">
+    <main className="flex-1 mx-10 xs:mx-5 sm:mx-12 ipad-air:mx-28">
+      <div className="grid pt-7 grid-row-3 grid-cols-4 xs:grid-rows-1 xs:grid-cols-1 xs:space-y-5 ipad-air:space-y-8">
         {results.length === 0 ? (
           <WeatherCard weather={weather} />
         ) : (
           results.map((result, index) => (
-            <>
-              <WeatherCard key={index} weather={result} />
-              <hr></hr>
-            </>
+            <WeatherCard key={index} weather={result} />
           ))
         )}
       </div>
