@@ -56,12 +56,12 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
       index++
     ) {
       theWeek.push(
-        <div key={index}>
-          <Typography variant={"small"}>
+        <div key={index} className="">
+          <Typography variant={"small"} className="ipad-air:text-2xl">
             {" "}
             {WMOComponent(theWeather.dailiesWeather.weathercode[index])}
           </Typography>
-          <Typography variant={"small"}>
+          <Typography variant={"small"} className="ipad-air:text-2xl">
             {(
               (theWeather.dailiesWeather.temperature_2m_max[index] +
                 theWeather.dailiesWeather.temperature_2m_min[index]) /
@@ -69,7 +69,9 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
             ).toFixed(1)}{" "}
             °C
           </Typography>
-          <Typography variant={"small"}>{indexToDayName(index)}</Typography>
+          <Typography variant={"small"} className="ipad-air:text-2xl">
+            {indexToDayName(index)}
+          </Typography>
         </div>
       );
     }
@@ -78,7 +80,10 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
   return (
     <>
       <Card className="bg-brown-800">
-        <CardHeader color="blue-gray" className="text-center">
+        <CardHeader
+          color="blue-gray"
+          className="text-center ipad-air:w-80 ipad-air:relative ipad-air:left-28"
+        >
           <Typography
             variant="h5"
             className="mb-2 flex justify-center xs:my-4 xs:text-2xl"
