@@ -37,9 +37,20 @@ export default function Header({ clickedSearch }: clickedSearchProps) {
             import.meta.env.VITE_API_OPENWEATHER_KEY,
           { mode: "cors" }
         );
-        const data: Promise<apiCall2CustomObjects.CityInformation[]> =
+        const dataDirty: Promise<apiCall2CustomObjects.CityInformation[]> =
           await response.json();
-        return data;
+        // first modify the undefined properties, currently state
+        const dataCleaned = (await dataDirty).map((content) => {
+          if (content.state === undefined) {
+            content.state = "No state found";
+            return content;
+          }
+          return content;
+        });
+        // now actually trim the array from duplicates.
+        // easiest is set, then back to array
+        const dataTrimmed = new Set(dataCleaned);
+        return [...dataTrimmed];
       } catch (error) {
         if (error instanceof Error) {
           throw new Error("queryfunction mucks", error);
