@@ -56,20 +56,32 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
       index++
     ) {
       theWeek.push(
-        <div key={index} className="">
-          <Typography variant={"small"} className="ipad-air:text-2xl">
+        <div key={index} className="flex flex-col items-center ">
+          <Typography
+            variant={"small"}
+            className="xs:text-xl xs:mb-3 ipad-air:text-2xl"
+          >
             {" "}
             {WMOComponent(theWeather.dailiesWeather.weathercode[index])}
           </Typography>
-          <Typography variant={"small"} className="ipad-air:text-2xl">
-            {(
-              (theWeather.dailiesWeather.temperature_2m_max[index] +
-                theWeather.dailiesWeather.temperature_2m_min[index]) /
-              2
-            ).toFixed(1)}{" "}
-            °C
+          <Typography
+            variant={"small"}
+            className="flex flex-col items-center xs:text-lg xs:-my-3 ipad-air:text-2xl"
+          >
+            <span>
+              {(
+                (theWeather.dailiesWeather.temperature_2m_max[index] +
+                  theWeather.dailiesWeather.temperature_2m_min[index]) /
+                2
+              ).toFixed(1)}
+            </span>
+
+            <span>°C</span>
           </Typography>
-          <Typography variant={"small"} className="ipad-air:text-2xl">
+          <Typography
+            variant={"small"}
+            className="xs:text-lg xs:-mb-8 ipad-air:text-2xl"
+          >
             {indexToDayName(index)}
           </Typography>
         </div>
@@ -78,34 +90,34 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
     return theWeek;
   }
   return (
-    <>
-      <Card className="bg-brown-800">
-        <CardHeader
-          color="blue-gray"
-          className="text-center ipad-air:w-80 ipad-air:relative ipad-air:left-28"
+    <Card className="bg-brown-800 only:bg-white mx-2">
+      <CardHeader
+        color="blue-gray"
+        className="text-center xs:px-5 ipad-air:w-80 ipad-air:relative ipad-air:left-28"
+      >
+        <Typography
+          variant="h5"
+          className="mb-2 flex justify-center xs:my-4 xs:text-2xl"
         >
-          <Typography
-            variant="h5"
-            className="mb-2 flex justify-center xs:my-4 xs:text-2xl"
-          >
-            {weather.cityname}
-          </Typography>
-          <Typography className="xs:text-xl xs:my-4">
-            {weather.state + ", " + weather.countrycode}
-          </Typography>
-          <Typography>
-            temperature: {weather.currentWeather.temperature} °C
-          </Typography>
-          <Typography>
-            weather: {WMOInterpreter(weather.currentWeather.weathercode)}
-            {WMOComponent(weather.currentWeather.weathercode)}
-          </Typography>
-        </CardHeader>
-        <CardBody className="flex justify-center gap-2 text-white">
-          {returnTheWeek(weather)}
-        </CardBody>
-        <CardFooter>{""}</CardFooter>
-      </Card>
-    </>
+          {weather.cityname}
+        </Typography>
+        <Typography className="xs:text-2xl xs:-my-2 mobile-m: ipad-air:text-2xl">
+          {weather.state + ", " + weather.countrycode}
+        </Typography>
+        <Typography className="xs:text-2xl xs:my-4 ipad-air:text-2xl">
+          temperature: {weather.currentWeather.temperature} °C
+        </Typography>
+        <Typography className="xs:text-2xl xs:-mt-2">
+          weather: {WMOInterpreter(weather.currentWeather.weathercode)}
+          {WMOComponent(weather.currentWeather.weathercode)}
+        </Typography>
+      </CardHeader>
+      <CardBody className="flex justify-center gap-2 text-white ipad-air:relative ipad-air:left-3">
+        {returnTheWeek(weather)}
+      </CardBody>
+      <CardFooter className="text-white">
+        {""}I will have a feature soon
+      </CardFooter>
+    </Card>
   );
 }
