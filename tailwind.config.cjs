@@ -6,12 +6,12 @@ module.exports = withMT({
   content: ["./index.html", "./src/**/*.{js,ts,tsx,jsx}"],
   theme: {
     screens: {
-      xs: { min: "0px", max: "374px" },
-      "mobile-m": { min: "375px", max: "639px" },
-      md: { min: "768px", max: "819px" },
-      "ipad-air": { min: "820px", max: "1023px" },
-      lg: { min: "1024px", max: "1279px" },
-      xl: { min: "1280px", max: "1535px" },
+      xs: "320px",
+      "mobile-m": "375px",
+      md: "768px",
+      "ipad-air": "820px",
+      lg: "1024px",
+      xl: "1280px",
       "2xl": "1536px",
     },
   },
