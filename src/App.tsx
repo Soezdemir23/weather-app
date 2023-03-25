@@ -67,11 +67,11 @@ function App() {
   if (defaulttWeatherError === true || defaultWeatherData === undefined)
     return <p>Error with Weather api call not working</p>;
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header clickedSearch={clickedSearch}></Header>
       <Main weather={defaultWeatherData} results={searchResults}></Main>
       <Footer></Footer>
-    </>
+    </div>
   );
 }
 
