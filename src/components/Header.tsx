@@ -65,16 +65,16 @@ export default function Header({ clickedSearch }: clickedSearchProps) {
     return <p>There is an error loading the API by searching</p>;
   }
   return (
-    <header className="bg-blue-gray-200 flex flex-col p-4 gap-9 items-center xs:p-2 xs:gap-2 mobile-m:gap-0 md:flex-row md:justify-evenly ipad-air:flex-row ipad-air:justify-evenly lg:flex-row lg:justify-evenly xl:flex-row xl:justify-evenly xl:gap-80 2xl:flex-row 2xl:justify-evenly 2xl:py-10">
+    <header className="bg-blue-gray-200 flex flex-col p-4 gap-9 items-center xs:p-2 xs:gap-2 mobile-m:gap-0 mobile-m:justify-between md:flex-row ">
       <Typography
         variant="h1"
-        className="relative max-w-xs mr-4 xs:text-3xl xs:mr-0 sm:text-2xl mobile-m:text-4xl mobile-m:left-2 md:right-8 md:text-4xl md:my-0 ipad-air:text-4xl lg:text-4xl lg:right-28 xl:text-5xl xl:m-0 2xl:right-52 2xl:text-6xl 2xl:m-0"
+        className="max-w-xs xs:text-3xl sm:text-2xl mobile-m:text-4xl md:ml-5 md:text-4xl ipad-air:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl"
       >
         Weatherlicious
       </Typography>
-      <div className="w-40 relative xs:w-52 ">
+      <div className="flex flex-col gap-1 justify-center items-center relative md:mr-5">
         <input
-          className="relative bottom-2 top-0 w-56 border-0 rounded-xl h-8 outline-none indent-1 focus:ring-2 focus:ring-inset focus:ring-offset-teal-400 focus:bg-orange-300 focus:text-white focus:placeholder:text-white xs:text-base xs:right-2 mobile-m:right-8 md:right-10 md:text-base ipad-air:text-xl lg:text-xl lg:w-60 xl:text-2xl xl:w-80 xl:right-20 xl:h-10 2xl:text-2xl 2xl:w-96 2xl:h-12"
+          className="w-56 self-center border-0 rounded-xl h-8 outline-none indent-1 focus:ring-2 focus:ring-inset focus:ring-offset-teal-400 focus:bg-orange-300 focus:text-white focus:placeholder:text-white xs:text-base ipad-air:text-xl lg:w-60 xl:text-2xl xl:w-80  xl:h-10 2xl:text-2xl 2xl:w-96 2xl:h-12"
           placeholder="City, State, Country"
           type={"text"}
           size={14}
@@ -89,7 +89,7 @@ export default function Header({ clickedSearch }: clickedSearchProps) {
             return;
           }}
         />
-        <div className="absolute z-10 list-none flex flex-col w-full">
+        <div className=" z-10 list-none flex flex-col w-full absolute top-full items-center self-center">
           {/**
            * 1st state Typography is not rendering: user didn't enter anything: searchData is undefined, searchQuery is empty ""
            * 2nd state Typography is being rendered: user entered a searchQuery and searchData has a length of 0: show the search notifier
@@ -115,7 +115,7 @@ export default function Header({ clickedSearch }: clickedSearchProps) {
                 <Typography
                   key={index}
                   variant="small"
-                  className="bg-teal-200 w-full rounded border-0 border-b border-solid border-teal-600 m-0 hover:cursor-pointer hover:bg-teal-50 active:bg-teal-100 mobile-m:relative mobile-m:w-52 mobile-m:right-5 md:relative md:w-56 md:right-10 md:text-lg ipad-air:text-lg ipad-air:w-56 lg:text-2xl lg:w-60 xl:w-72 xl:relative xl:right-16 xl:text-xl 2xl:w-96 2xl:text-2xl "
+                  className="bg-teal-200 w-full rounded border-0 border-b border-solid border-teal-600 m-0 hover:cursor-pointer hover:bg-teal-50 active:bg-teal-100  md:text-lg ipad-air:text-lg  lg:text-2xl xl:text-xl 2xl:text-2xl "
                   onClick={() => {
                     handleResultClick(index);
                   }}
