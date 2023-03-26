@@ -6,7 +6,7 @@ export async function fetchLongLatByCityName(
 ): Promise<apiCall2CustomObjects.CityInformation[]> {
   try {
     const result = await fetch(
-      "http://api.openweathermap.org/geo/1.0/direct?q=" +
+      "https://api.openweathermap.org/geo/1.0/direct?q=" +
         city +
         "&limit=1&appid=" +
         import.meta.env.VITE_API_OPENWEATHER_KEY,
@@ -21,13 +21,16 @@ export async function fetchLongLatByCityName(
 }
 
 export async function fetchWeatherByLongLat(
-  lat: number,
-  lon: number,
-  countrycode: string,
-  cityname: string,
-  state: string
+  CityToWeatherObject: apiCall2CustomObjects.CityInformation
 ): Promise<apiCall2CustomObjects.Weather> {
   try {
+    const {
+      name: cityname,
+      country: countrycode,
+      lon,
+      lat,
+      state,
+    } = CityToWeatherObject;
     let weather = getCurrentWeekDates();
 
     const fetchWeekWeather = await fetch(

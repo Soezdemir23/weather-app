@@ -33,6 +33,8 @@ export function WMOInterpreter(input: number) {
       return "overcast";
     case 45:
       return "fog";
+    case 55:
+      return "fog";
     case 48:
       return "depositing rime fog";
     case 51:
@@ -97,6 +99,8 @@ export function WMOComponent(input: number): React.ReactElement {
     case 45:
       return <WiFog />;
     case 48:
+      return <WiFog />;
+    case 55:
       return <WiFog />;
     case 51:
       return <BiCloudDrizzle />;
