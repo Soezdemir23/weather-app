@@ -7,7 +7,6 @@ import { apiCall2CustomObjects } from "./interfaces";
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchLongLatByCityName, fetchWeatherByLongLat } from "./queries";
-import React from "react";
 
 function App() {
   const [searchResults, setSearchResults] = useState<
@@ -67,7 +66,7 @@ function App() {
   if (defaulttWeatherError === true || defaultWeatherData === undefined)
     return <p>Error with Weather api call not working</p>;
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen ">
       <Header clickedSearch={clickedSearch}></Header>
       <Main weather={defaultWeatherData} results={searchResults}></Main>
       <Footer></Footer>
