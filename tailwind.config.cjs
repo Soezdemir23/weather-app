@@ -1,20 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 
 const withMT = require("@material-tailwind/react/utils/withMT");
-
+{
+  /* sm: 540px, not 640px. WOW 
+      md: 720, not 768px
+      */
+}
 module.exports = withMT({
   content: ["./index.html", "./src/**/*.{js,ts,tsx,jsx}"],
-  theme: {
-    screens: {
-      xs: "320px",
-      "mobile-m": "375px",
-      md: "768px",
-      "ipad-air": "820px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
-    },
-  },
+  theme: {},
   corePlugins: {
     preflight: false,
   },
