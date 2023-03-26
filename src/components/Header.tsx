@@ -65,18 +65,18 @@ export default function Header({ clickedSearch }: clickedSearchProps) {
     return <p>There is an error loading the API by searching</p>;
   }
   return (
-    <header className="bg-blue-gray-200 flex flex-col p-4 gap-9 items-center xs:p-2 xs:gap-2 mobile-m:gap-0 mobile-m:justify-between md:flex-row ">
+    <header className="bg-blue-gray-200 flex flex-col p-4 gap-3 items-center sm:flex-row sm:justify-between ">
       <Typography
         variant="h1"
-        className="max-w-xs xs:text-3xl sm:text-2xl mobile-m:text-4xl md:ml-5 md:text-4xl ipad-air:text-4xl lg:text-4xl xl:text-5xl 2xl:text-6xl"
+        className="max-w-xs text-2xl my-0 md:text-3xl 2xl:text-4xl"
       >
         Weatherlicious
       </Typography>
       <div className="flex flex-col gap-1 justify-center items-center relative md:mr-5">
         <input
-          className="w-56 self-center border-0 rounded-xl h-8 outline-none indent-1 focus:ring-2 focus:ring-inset focus:ring-offset-teal-400 focus:bg-orange-300 focus:text-white focus:placeholder:text-white xs:text-base ipad-air:text-xl lg:w-60 xl:text-2xl xl:w-80  xl:h-10 2xl:text-2xl 2xl:w-96 2xl:h-12"
+          className="w-56 self-center border-0 rounded-xl h-8 outline-none indent-1 focus:ring-2 focus:ring-inset focus:ring-offset-teal-400 focus:bg-orange-300 focus:text-white focus:placeholder:text-white xs:text-base lg:w-72 lg:text-2xl xl:text-2xl xl:w-80 xl:h-10 2xl:text-3xl 2xl:w-96 2xl:h-12 "
           placeholder="City, State, Country"
-          type={"text"}
+          type={""}
           size={14}
           onInput={(e) => {
             setSearchQuery(e.currentTarget.value);
@@ -105,9 +105,9 @@ export default function Header({ clickedSearch }: clickedSearchProps) {
           ) : searchData.length === 0 ? (
             <Typography
               variant="small"
-              className="bg-teal-200 w-full rounded border-0 border-b border-solid border-teal-600 m-0"
+              className="bg-teal-200 w-full rounded border-0 border-b border-solid border-teal-600 m-0 md:text-lg ipad-air:text-lg  lg:text-2xl xl:text-xl 2xl:text-2xl 3xl:text-2xl"
             >
-              searching, please
+              searching, please try again
             </Typography>
           ) : (
             searchData.map(
@@ -115,7 +115,7 @@ export default function Header({ clickedSearch }: clickedSearchProps) {
                 <Typography
                   key={index}
                   variant="small"
-                  className="bg-teal-200 w-full rounded border-0 border-b border-solid border-teal-600 m-0 hover:cursor-pointer hover:bg-teal-50 active:bg-teal-100  md:text-lg ipad-air:text-lg  lg:text-2xl xl:text-xl 2xl:text-2xl "
+                  className="bg-teal-200 w-full rounded border-0 border-b border-solid border-teal-600 m-0 hover:cursor-pointer hover:bg-teal-50 active:bg-teal-100 sm:text-lg lg:text-xl xl:text-2xl"
                   onClick={() => {
                     handleResultClick(index);
                   }}
