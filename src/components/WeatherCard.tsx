@@ -39,6 +39,8 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
     }
   }
 
+  //I tried to make the kids inherit some properties,
+  // but i guess that's not gonna fly
   function returnTheWeek(
     theWeather: apiCall2CustomObjects.Weather
   ): React.ReactElement[] | React.ReactElement {
@@ -56,17 +58,17 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
       index++
     ) {
       theWeek.push(
-        <div key={index} className="flex flex-col items-center ">
-          <Typography
-            variant={"small"}
-            className="xs:text-xl xs:mb-3 ipad-air:text-2xl"
-          >
+        <div
+          key={index}
+          className="flex flex-col items-center justify-center mx-1"
+        >
+          <Typography variant={"small"} className="md:text-xl md:my-2">
             {" "}
             {WMOComponent(theWeather.dailiesWeather.weathercode[index])}
           </Typography>
           <Typography
             variant={"small"}
-            className="flex flex-col items-center xs:text-lg xs:-my-3 ipad-air:text-2xl"
+            className="flex flex-col items-center my-1 md:text-lg"
           >
             <span>
               {(
@@ -75,13 +77,9 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
                 2
               ).toFixed(1)}
             </span>
-
             <span>°C</span>
           </Typography>
-          <Typography
-            variant={"small"}
-            className="xs:text-lg xs:-mb-8 ipad-air:text-2xl"
-          >
+          <Typography variant={"small"} className="">
             {indexToDayName(index)}
           </Typography>
         </div>
@@ -90,29 +88,23 @@ export default function WeatherCard({ weather }: WeatherCardInterface) {
     return theWeek;
   }
   return (
-    <Card className="bg-brown-800 only:bg-white mx-2">
-      <CardHeader
-        color="blue-gray"
-        className="text-center xs:px-5 ipad-air:w-80 ipad-air:relative ipad-air:left-28"
-      >
-        <Typography
-          variant="h5"
-          className="mb-2 flex justify-center xs:my-4 xs:text-2xl"
-        >
+    <Card className="bg-brown-800 h-max self-center only:col-span-full w-11/12 md:w-72 lg:w-80 ">
+      <CardHeader className="min-w-max m-auto -mt-5 text-center w-11/12 bg-orange-700 text-white md:w-5/6 ">
+        <Typography variant="h5" className="flex justify-center my-4 -mb-2">
           {weather.cityname}
         </Typography>
-        <Typography className="xs:text-2xl xs:-my-2 mobile-m: ipad-air:text-2xl">
+        <Typography className=" -mb-2 md:text-lg">
           {weather.state + ", " + weather.countrycode}
         </Typography>
-        <Typography className="xs:text-2xl xs:my-4 ipad-air:text-2xl">
-          temperature: {weather.currentWeather.temperature} °C
+        <Typography className="md:text-lg">
+          Temperature: {weather.currentWeather.temperature} °C
         </Typography>
-        <Typography className="xs:text-2xl xs:-mt-2">
-          weather: {WMOInterpreter(weather.currentWeather.weathercode)}
+        <Typography className="-mt-2 md:text-lg lg:text-xl">
+          Weather: {WMOInterpreter(weather.currentWeather.weathercode)}
           {WMOComponent(weather.currentWeather.weathercode)}
         </Typography>
       </CardHeader>
-      <CardBody className="flex justify-center gap-2 text-white ipad-air:relative ipad-air:left-3">
+      <CardBody className="flex justify-center text-white">
         {returnTheWeek(weather)}
       </CardBody>
       <CardFooter className="text-white">

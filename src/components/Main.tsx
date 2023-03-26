@@ -23,8 +23,9 @@ export default function Main({ weather, results }: CurrentWeatherInterface) {
   }
 
   return (
-    <main className="flex-grow grid mx-10 xs:mx-3 sm:mx-12 md:fir ipad-air:mx-28">
-      <div className="grid pt-7 place-items-stretch xs:grid-rows-1 xs:grid-cols-1 xs:space-y-5  md:grid-cols-2 ipad-air:space-y-8 ">
+    <main className="flex-grow ">
+      <div className="grid pt-12 place-items-stretch justify-items-center gap-y-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+        {" "}
         {results.length === 0 ? (
           <WeatherCard weather={weather} />
         ) : (
